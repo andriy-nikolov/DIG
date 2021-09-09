@@ -35,29 +35,35 @@ from matplotlib.patches import Path, PathPatch
 
 import captum
 import captum.attr as ca
-from captum.attr._utils.typing import (
+#from captum.attr._utils.typing import (
+from captum._utils.typing import (
     BaselineType,
     Literal,
     TargetType,
     TensorOrTupleOfTensorsGeneric,
 )
+
 from captum.attr._core.deep_lift import DeepLiftShap
 from captum.attr._utils.attribution import GradientAttribution, LayerAttribution
-from captum.attr._utils.common import (
+#from captum.attr._utils.common import (
+from captum._utils.common import (
     ExpansionTypes,
-    _call_custom_attribution_func,
-    _compute_conv_delta_and_format_attrs,
     _expand_additional_forward_args,
     _expand_target,
     _format_additional_forward_args,
-    _format_attributions,
+)
+from captum.attr._utils.common import (
+    _call_custom_attribution_func,
+    _compute_conv_delta_and_format_attrs,
+    #_format_attributions,
     _format_baseline,
     _format_callable_baseline,
     _format_input,
     _tensorize_baseline,
     _validate_input,
 )
-from captum.attr._utils.gradient import (
+#from captum.attr._utils.gradient import (
+from captum._utils.gradient import (
     apply_gradient_requirements,
     compute_layer_gradients_and_eval,
     undo_gradient_requirements,
@@ -287,20 +293,30 @@ class ExplainerBase(nn.Module):
                     shrinkB=sqrt(kwargs['node_size']) / 2.0,
                     connectionstyle="arc3,rad=0.08",  # rad control angle
                 ))
-        nx.draw_networkx_nodes(G, pos, node_color=node_colors, **kwargs)
+
+
+        print(kwargs)
+        nodes_args = kwargs
+        nodes_args.pop("num_nodes", None)
+        nodes_args.pop("with_labels", None)
+        nodes_args.pop("font_size", None)
+        nx.draw_networkx_nodes(G, pos, node_color=node_colors, **nodes_args)
         # define node labels
+        labels_args = kwargs
+        labels_args.pop("node_size", None)
+        labels_args.pop("cmap", None)
         if self.molecule:
             if x_args.nolabel:
                 node_labels = {n: f'{self.table(atomic_num[n].int().item())}'
                                for n in G.nodes()}
-                nx.draw_networkx_labels(G, pos, labels=node_labels, **kwargs)
+                nx.draw_networkx_labels(G, pos, labels=node_labels, **labels_args)
             else:
                 node_labels = {n: f'{n}:{self.table(atomic_num[n].int().item())}'
                                for n in G.nodes()}
-                nx.draw_networkx_labels(G, pos, labels=node_labels, **kwargs)
+                nx.draw_networkx_labels(G, pos, labels=node_labels, **labels_args)
         else:
             if not x_args.nolabel:
-                nx.draw_networkx_labels(G, pos, **kwargs)
+                nx.draw_networkx_labels(G, pos, **labels_args)
 
         return ax, G
 

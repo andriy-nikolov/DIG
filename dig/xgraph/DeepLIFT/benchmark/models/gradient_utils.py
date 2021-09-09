@@ -8,9 +8,10 @@ import torch
 from torch import Tensor, device
 from torch.nn import Module
 
-from captum.attr._utils.batching import _reduce_list, _sort_key_list
-from captum.attr._utils.common import _run_forward, _verify_select_column
-from captum.attr._utils.typing import Literal, TargetType, TensorOrTupleOfTensorsGeneric
+#from captum.attr._utils.batching import _reduce_list, _sort_key_list
+from captum._utils.common import _reduce_list, _sort_key_list
+from captum._utils.common import _run_forward, _verify_select_column
+from captum._utils.typing import Literal, TargetType, TensorOrTupleOfTensorsGeneric
 
 
 def apply_gradient_requirements(inputs: Tuple[Tensor, ...]) -> List[bool]:

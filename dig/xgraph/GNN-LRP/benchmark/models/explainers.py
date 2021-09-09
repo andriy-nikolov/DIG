@@ -897,5 +897,3 @@ class GNN_LRP(WalkBase):
                 related_preds = self.eval_related_pred(x, edge_index, masks, **kwargs)
 
         return walks, masks, related_preds
-
-

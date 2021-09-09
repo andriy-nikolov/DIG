@@ -8,6 +8,7 @@ from torch.nn import Module
 
 from benchmark.models.ext.deeplift.deep_lift import DeepLift, DeepLiftShap
 from captum.attr._utils.attribution import LayerAttribution
+'''
 from captum.attr._utils.common import (
     ExpansionTypes,
     _call_custom_attribution_func,
@@ -21,12 +22,38 @@ from captum.attr._utils.common import (
     _tensorize_baseline,
     _validate_input,
 )
-from captum.attr._utils.gradient import (
+'''
+from captum._utils.common import (
+    ExpansionTypes,
+    #_compute_conv_delta_and_format_attrs,
+    _expand_additional_forward_args,
+    _expand_target,
+    _format_additional_forward_args,
+    #_format_attributions,
+    _format_output,
+    _format_baseline,
+    #_format_callable_baseline,
+    _format_input,
+    _format_tensor_into_tuples,
+    _is_tuple,
+    _run_forward,
+    #_tensorize_baseline,
+    _validate_input,
+)
+from captum.attr._utils.common import (
+    _call_custom_attribution_func,
+    _compute_conv_delta_and_format_attrs,
+    #_format_attributions,
+    _format_callable_baseline,
+    _tensorize_baseline,
+)
+
+from captum._utils.gradient import (
     apply_gradient_requirements,
     compute_layer_gradients_and_eval,
     undo_gradient_requirements,
 )
-from captum.attr._utils.typing import (
+from captum._utils.typing import (
     BaselineType,
     Literal,
     TargetType,
